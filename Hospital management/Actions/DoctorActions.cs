@@ -13,9 +13,21 @@ namespace Hospital_management.Actions
 		public static void DoctorSignUp()
 		{
 			string name = Console.ReadLine();
-			string password = Console.ReadLine();
-			AddDoctor(new(name, password));
-			Console.WriteLine("Hesab ugurla yaradildi.");
+			bool loop = true;
+			while (loop)
+			{
+				string password = Console.ReadLine();
+				if(IsPasswordValid(password))
+				{
+					loop = false;
+					AddDoctor(new(name, password));
+					Console.WriteLine("Hesab ugurla yaradildi.");
+				}
+				else
+				{
+                    Console.WriteLine("parolda en azi 1 boyuk herf ve reqem olmalidir!!!");
+				}
+			}
 		}
 		public static void DoctorLogin()
 		{
@@ -86,6 +98,10 @@ namespace Hospital_management.Actions
 					Console.WriteLine();
                 }
             }
+		}
+		static bool IsPasswordValid(string password)
+		{
+			return password.Any(c => char.IsUpper(c)) && password.Any(c => char.IsNumber(c));
 		}
 	}
 }
